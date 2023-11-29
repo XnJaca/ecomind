@@ -1,0 +1,219 @@
+<form
+  [formGroup]="centroacopioForm"
+  (ngSubmit)="submitCentroAcopioForm()"
+  novalidate
+>
+  <input type="hidden" formControlName="id" />
+  <mat-card class="shipping-card">
+    <!-- Título -->
+    <mat-card-header>
+      <mat-card-title>{{ titleForm }} Centro de Acopio</mat-card-title>
+    </mat-card-header>
+
+    <!-- Contenido -->
+    <mat-card-content>
+      <!-- Nombre -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              #nombreCentroAcopio
+              formControlName="nombre"
+              maxlength="50"
+              placeholder="Nombre"
+            />
+            <mat-hint align="end"
+              >{{ nombreCentroAcopio.value.length }} / 50</mat-hint
+            >
+            <mat-error *ngIf="errorHandling('nombre', 'required')">
+              Nombre es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('nombre', 'minlength')">
+              Nombre debe tener <strong>3 caracteres</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Provincia -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Provincia</mat-label>
+            <mat-select
+              formControlName="direccionProvincia"
+              (selectionChange)="
+                onProvinceChange(
+                  centroacopioForm.controls['direccionProvincia'].value
+                )
+              "
+            >
+              <mat-option
+                *ngFor="let provincia of provincias"
+                [value]="provincia.id"
+              >
+                {{ provincia.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionProvincia', 'required')">
+              Provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Cantón -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Cantón</mat-label>
+            <mat-select
+              formControlName="direccionCanton"
+              (selectionChange)="
+                onCantonChange(
+                  centroacopioForm.controls['direccionProvincia'].value,
+                  centroacopioForm.controls['direccionCanton'].value
+                )
+              "
+            >
+              <mat-option *ngFor="let canton of cantones" [value]="canton.id">
+                {{ canton.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionCanton', 'required')">
+              Cantón es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Distrito -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Distrito</mat-label>
+            <mat-select
+              formControlName="direccionDistrito"
+              (selectionChange)="
+                onDistritoChange(
+                  centroacopioForm.controls['direccionDistrito'].value
+                )
+              "
+            >
+              <mat-option
+                *ngFor="let distrito of distritos"
+                [value]="distrito.id"
+              >
+                {{ distrito.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionDistrito', 'required')">
+              Distrito es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- DirecciónExacta -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="direccionExacta"
+              placeholder="Dirección Exacta"
+            />
+            <mat-error *ngIf="errorHandling('direccionExacta', 'required')">
+              Dirección Exacta es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Teléfono -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="telefono" placeholder="Teléfono" />
+            <mat-error *ngIf="errorHandling('telefono', 'required')">
+              Teléfono es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- HorarioAtención -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="horarioAtencion"
+              placeholder="Horario de Atención"
+            />
+            <mat-error *ngIf="errorHandling('horarioAtencion', 'required')">
+              Horario de Atención es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Habilitado -->
+      <div class="row">
+        <div class="col">
+          <mat-label>Habilitado</mat-label>
+          <mat-radio-group formControlName="habilitado">
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+            <mat-radio-button [value]="false">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Usuario -->
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select
+              placeholder="Administrador"
+              formControlName="administradorId"
+            >
+              <mat-option
+                *ngFor="let usuario of usuarioList"
+                [value]="usuario.id"
+              >
+                {{ usuario.nombreCompleto }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('usuario', 'required')">
+              Usuario es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select
+              placeholder="Materiales aceptados"
+              formControlName="materialAceptado"
+              multiple
+            >
+              <mat-option
+                *ngFor="let material of materialreciclableList"
+                [value]="material.id"
+              >
+                {{ material.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('materialAceptado', 'required')">
+              Matriales aceptados son <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <!-- Acciones -->
+    <mat-card-actions>
+      <div class="example-button-row">
+        <button mat-raised-button color="warn" (click)="onReset()">
+          Reset
+        </button>
+        <button mat-raised-button color="primary" (click)="onBack()">
+          Regresar
+        </button>
+        <button mat-raised-button color="accent" type="submit">Guardar</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

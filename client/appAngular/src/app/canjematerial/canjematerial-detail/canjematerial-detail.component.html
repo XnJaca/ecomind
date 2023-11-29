@@ -1,0 +1,91 @@
+<mat-card class="dashboard-card color" *ngIf="datos">
+  <div class="encabezado">
+    <p class="titulo"><b>Canje Material No. </b>{{ datos.id }}</p>
+    <mat-dialog-content class="dialog-content">
+      <div class="dialog-left">
+        <p><b>Fecha: </b> {{ datos.fechaCanje | date : "dd/MM/yyyy" }}</p>
+        <p><b>Cliente </b>{{ datos.usuario.nombreCompleto }}</p>
+        <p><b>Correo: </b> {{ datos.usuario.correo }}</p>
+      </div>
+      <div class="dialog-right">
+        <p><b>Centro de Acopio: </b> {{ datos.centroAcopio.nombre }}</p>
+        <p><b>Dirección: </b> {{datos.centroAcopio.direccionProvincia}}, {{datos.centroAcopio.direccionCanton}}, 
+            {{datos.centroAcopio.direccionDistrito}}, {{datos.centroAcopio.direccionExacta}}</p>
+        <p><b>Teléfono: </b> {{datos.centroAcopio.telefono}}</p>
+      </div>
+    </mat-dialog-content>
+  </div>
+
+  <mat-card-content class="dashboard-card-content">
+    <mat-card-content>
+      <!-- Table -->
+      <div class="mat-elevation-z8" *ngIf="dataSource">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="full-width-table"
+          matSort
+          aria-label="Elements"
+        >
+          <!-- Columna Material -->
+          <ng-container matColumnDef="material">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Material</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.materialReciclable.nombre }}
+            </td>
+          </ng-container>
+
+          <!-- Columna Unidad de Medida -->
+          <ng-container matColumnDef="unidadmedida">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Unidad de Medida
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.materialReciclable.unidadMedida }}
+            </td>
+          </ng-container>
+
+          <!-- Columna Precio EcoMoneda -->
+          <ng-container matColumnDef="precioEcomoneda">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Precio EcoMoneda
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.materialReciclable.precioEcoMoneda | currency : "USD" }}
+            </td>
+          </ng-container>
+
+          <!-- Columna Cantidad -->
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+            <td mat-cell *matCellDef="let row">{{ row.cantidad }}</td>
+          </ng-container>
+
+          <!-- Columna Subtotal -->
+          <ng-container matColumnDef="subtotal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Subtotal</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.subtotal | currency : "USD" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div class = "total">
+        <p><b>Total: </b>{{ datos.total | currency : "USD" }}</p>
+        <button
+                mat-mini-fab class="btnRegresar"
+                color="accent"
+                matTooltip="Regresar"
+                aria-label="Regresar"
+                color="primary"
+                (click)="goBack()"
+              >
+                <mat-icon >undo</mat-icon>
+              </button>
+      </div>
+    </mat-card-content>
+  </mat-card-content>
+</mat-card>

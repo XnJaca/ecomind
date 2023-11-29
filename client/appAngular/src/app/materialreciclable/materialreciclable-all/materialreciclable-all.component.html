@@ -1,0 +1,103 @@
+<mat-card class="full-width">
+  <!-- Titulo del Card -->
+  <mat-card-header>
+    <mat-card-title>
+      Materiales Reciclables
+      <a
+        mat-fab
+        matTooltip="Crear materialReciclable"
+        aria-label="Crear materialReciclable"
+        color="primary"
+        (click)="crearMaterialReciclable()"
+      >
+        <mat-icon>add</mat-icon>
+      </a>
+    </mat-card-title>
+    <mat-card-subtitle><br /> </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Table -->
+    <div class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="full-width-table"
+        matSort
+        aria-label="Elements"
+      >
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+        </ng-container>
+
+        <!-- UnidadMedida Column -->
+        <ng-container matColumnDef="unidadmedida">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Unidad Medida
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.unidadMedida }}</td>
+        </ng-container>
+
+        <!-- Precio Column -->
+        <ng-container matColumnDef="precioecomoneda">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Precio Ecomoneda
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.precioEcoMoneda | currency : "USD" }}
+          </td>
+        </ng-container>
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <!-- Botón Actualizar -->
+            <button
+              mat-mini-fab
+              [style.background-color]="
+                obtenerColorRepresentativo(row.colorRepresentativo)
+              "
+              matTooltip="Actualizar Material Reciclable"
+              aria-label="Actualizar Material Reciclable"
+              (click)="actualizarMaterialReciclable(row.id)"
+            >
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+
+            <!-- Botón Detalle -->
+            <button
+              mat-mini-fab
+              [style.background-color]="
+                obtenerColorRepresentativo(row.colorRepresentativo)
+              "
+              matTooltip="Detalle Material Reciclable"
+              aria-label="Detalle Material Reciclable"
+              (click)="detalleMaterialReciclable(row.id)"
+            >
+              <mat-icon class="mat-18">info</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          [ngClass]="'header-row'"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource.data.length"
+        [pageIndex]="0"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 8, 10]"
+        aria-label="Seleccione una página"
+      >
+      </mat-paginator>
+    
+    </div>
+    <!-- Table -->
+  </mat-card-content>
+</mat-card>

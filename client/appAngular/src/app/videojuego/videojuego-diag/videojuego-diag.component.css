@@ -1,0 +1,11 @@
+.dashboard-card {
+    margin: 2%;
+  }
+    
+  .dashboard-card-content {
+    text-align: left;
+    line-height: 1.5em;
+  }
+.info{
+  margin: 1em 1em;
+}

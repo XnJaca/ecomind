@@ -1,0 +1,134 @@
+<form
+  [formGroup]="materialreciclableForm"
+  (ngSubmit)="submitMaterialReciclable()"
+  novalidate
+>
+  <input type="hidden" formControlName="id" />
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>{{ titleForm }} Material Reciclable</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              #nombreMaterialReciclable
+              formControlName="nombre"
+              maxlength="20"
+              placeholder="Nombre"
+            />
+            <mat-hint align="end"
+              >{{ nombreMaterialReciclable.value.length }} / 20</mat-hint
+            >
+            <mat-error *ngIf="errorHandling('nombre', 'required')">
+              Nombre es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('nombre', 'minlength')">
+              Nombre debe tener <strong>3 caracteres</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="descripcion"
+              placeholder="Descripción"
+            />
+            <mat-error *ngIf="errorHandling('descripcion', 'required')">
+              Descripcion es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="precioEcoMoneda"
+              placeholder="Precio Eco Moneda"
+            />
+            <mat-error *ngIf="errorHandling('precioEcoMoneda', 'required')">
+              Precio es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('precioEcoMoneda', 'pattern')">
+              Precio debe tener <strong>números con dos decimales</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="unidadMedida"
+              placeholder="Unidad de Medida"
+            />
+            <mat-error *ngIf="errorHandling('unidadMedida', 'required')">
+              Unidad de Medida es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="colorRepresentativo"
+              placeholder="Color Representativo"
+            />
+            <mat-error *ngIf="errorHandling('colorRepresentativo', 'required')">
+              Color Representativo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Imagen</mat-label>
+            <input
+              type="text"
+              matInput
+              [value]="materialreciclableForm.get('imagenURL').value"
+              readonly
+            />
+            <mat-error *ngIf="errorHandling('imagenURL', 'required')">
+              Imagen es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input
+            type="file"
+            (change)="handleImageInput($event)"
+          />
+        </div>
+      </div>
+
+      
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="example-button-row">
+        <button mat-raised-button color="warn" (click)="onReset()">
+          Reset
+        </button>
+        <button mat-raised-button color="primary" (click)="onBack()">
+          Regresar
+        </button>
+        <button mat-raised-button color="accent" type="submit">Guardar</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

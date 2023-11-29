@@ -1,0 +1,46 @@
+.dashboard-card {
+    margin: 2%;
+  }
+    
+  .dashboard-card-content {
+    text-align: left;
+    line-height: 1.5em;
+  }
+.info{
+  margin: 1em 1em;
+  border-radius: 10px;
+}
+
+.info h2 {
+    text-align: center;
+    font-size: 2.5em; /* Tamaño de fuente más grande */
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 10px; /* Espaciado inferior */
+  }
+
+.imagen{
+    max-width: 100%;
+    max-height: 300px;
+    margin: 0 auto;
+    display: block;
+    padding: 0.5em;
+    border-radius: 10px;
+}
+
+.close-icon {
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.info {
+  padding: 20px;
+}
+
+.titulo {
+  color: #ffffff;
+}
+
+.descripcion, .precio {
+  margin-bottom: 10px;
+}

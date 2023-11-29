@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <button [matMenuTriggerFor]="menu1" mat-icon-button class="example-icon"
+    aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Ecomind</span>
+  <mat-menu #menu1="matMenu">
+    <!-- 
+      #= forma de llamar un componente
+      
+      https://material.angular.io/components/menu/overview
+      nested menu
+    -->
+    <button mat-menu-item [routerLink]="['/']" routerLinkActive="'mat-raised-button'" > Inicio </button>
+    <button mat-menu-item [routerLink]="'/materialreciclable'" [routerLinkActive]="'mat-raised-button'">Materiales Reciclables</button>
+    <button mat-menu-item [routerLink]="'/centroacopio'" [routerLinkActive]="'mat-raised-button'">Centros de acopio</button>
+    <button mat-menu-item  [matMenuTriggerFor]="menu2"
+    
+      routerLinkActive="mat-raised-button">
+      Mantenimientos
+    </button>
+
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item [routerLink]="'/materialreciclable/all'" [routerLinkActive]="'mat-raised-button'">Materiales Reciclables</button>
+      <button mat-menu-item [routerLink]="'/centroacopio/all'" [routerLinkActive]="'mat-raised-button'">Centros de Acopio</button>
+      <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
+      <!---<button mat-menu-item [routerLink]="'/orden/rGrafico'" [routerLinkActive]="'mat-raised-button'">Reporte Gráfico</button> --->
+      <!---<button mat-menu-item [routerLink]="'/orden/rPDF'" [routerLinkActive]="'mat-raised-button'">Reporte PDF</button>--->
+    </mat-menu>
+
+    <!-- <button mat-menu-item  [matMenuTriggerFor]="menu3"
+      routerLinkActive="mat-raised-button">
+      Administrador
+    </button>
+    <mat-menu #menu3="matMenu">
+      <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
+    </mat-menu>
+
+    <button mat-menu-item  [matMenuTriggerFor]="menu4"
+      routerLinkActive="mat-raised-button">
+      Cliente
+    </button>
+    <mat-menu #menu4="matMenu">
+      <button mat-menu-item (click)="historialCanjes()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
+    </mat-menu> -->
+    
+  </mat-menu>
+  <div class="example-button-container" align="end"></div>
+  <div class="example-spacer"></div>
+  <div class="example-spacer">
+    <!--enlaces de la app-->
+    <!--https://fonts.google.com/icons-->
+    <!--https://material.angular.io/guide/typography-->
+    <!-- Carrito de compra, presenta la cantidad -->
+    <button mat-icon-button matBadgeColor="accent" [matBadge]="qtyItems.toString()"
+       [routerLink]="'/canjematerial'" [routerLinkActive]="'mat-raised-button'" aria-label="Cantidad">
+     <mat-icon>shopping_cart</mat-icon>
+   </button> |   
+    <!--Usuario-->
+    <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.email}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu3">
+      <mat-icon [ngStyle]="{'color': isAutenticated ? 'white': '#9E9E9E' }">person</mat-icon>
+    </button>
+    <!--Menu usuario-->
+    <mat-menu #menu3="matMenu">
+      <a mat-menu-item *ngIf="!(isAutenticated)" (click)="login()">
+        <mat-icon>person_add</mat-icon>
+        <span>Login</span>
+      </a>
+      <a mat-menu-item *ngIf="isAutenticated" (click)="logout()">
+        <mat-icon>person_remove</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-menu>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,16 @@
+.footer-row {
+    font-weight: bold;
+  }
+  .box { margin: 2em 2em; padding: 2em 2em;}
+  .header{
+    background-color:#8589ff;
+    color: white;
+  }
+  .footer-row{
+    background-color:#e8e8e8;
+    
+  }
+  .footer-total{
+    font-size: 1.2em;
+    font-weight: bolder;
+  }

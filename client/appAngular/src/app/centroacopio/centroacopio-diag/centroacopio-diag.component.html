@@ -1,0 +1,38 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+
+<div *ngIf="datos" class="info">
+  <h2 mat-dialog-title color="primary">{{ datos.nombre }}</h2>
+
+  <mat-dialog-content>
+    <p>
+      Dirección exacta: {{ datos.direccionProvincia }},
+      {{ datos.direccionCanton }}, {{ datos.direccionDistrito }},
+      {{ datos.direccionExacta }}
+    </p>
+    <p>Horario: {{ datos.horarioAtencion }}</p>
+    <p>Télefono: {{ datos.telefono }}</p>
+    <p>Nombre del Administrador: {{ datos.administrador?.nombreCompleto }}</p>
+    <p>Materiales Aceptados:</p>
+    <ul>
+        <li *ngFor="let material of datos.materialAceptado" style="list-style-type: disc; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-left: 20px;">
+              <div>
+                {{ material.materialReciclable.nombre }}
+              </div>
+              <div>
+                <button mat-button
+                  (click)="detalleMaterialReciclable(material.materialReciclable.id)" 
+                  [style.background-color]="obtenerColorRepresentativo(material.materialReciclable.colorRepresentativo)"
+                >
+                  Ver Detalle
+                </button>
+              </div>
+            </div>
+          </li>
+    </ul>
+  </mat-dialog-content>
+
+  <mat-dialog-actions> </mat-dialog-actions>
+</div>

@@ -1,0 +1,17 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+
+<div *ngIf="datos" class="info" [style.background-color]="obtenerColorRepresentativo(datos.colorRepresentativo)">
+  <h2 mat-dialog-title color="primary">{{ datos.nombre }}</h2>
+
+  <mat-dialog-content>
+    <p>Descripción: {{ datos.descripcion }}</p>
+    <p>Precio Ecomoneda: {{ datos.precioEcoMoneda | currency : "USD" }} </p> 
+    <p>Unidad de medida: {{datos.unidadMedida}}</p>
+    <!-- Acá se debería añadir la sección para la imagen -->
+    <img *ngIf="datos.image" [src]="'data:image/png;base64,' + datos.image" class="imagen" />
+  </mat-dialog-content>
+
+  <mat-dialog-actions> </mat-dialog-actions>
+</div>

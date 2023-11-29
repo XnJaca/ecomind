@@ -1,0 +1,11 @@
+.color{
+    background-color: #747474 !important;
+  }
+  .titulo{
+    text-align: center;
+    color: #22333B;
+    margin: 1%;
+  }
+  .btnDetalle:hover{
+    background-color: #747474;
+  }

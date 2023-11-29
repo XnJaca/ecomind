@@ -1,0 +1,76 @@
+<form [formGroup]="videojuegoForm" (ngSubmit)="submitVideojuego()" novalidate >
+  <input type="hidden" formControlName="id" />
+  <mat-card class="shipping-card"> 
+    <mat-card-header>
+      <mat-card-title>{{titleForm}} Videojuego</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput #nombreVideojuego formControlName="nombre"  maxlength="20" placeholder="Nombre" >
+            <mat-hint align="end">{{nombreVideojuego.value.length}} / 20</mat-hint>
+            <mat-error *ngIf="errorHandling('nombre','required')">
+              Nombre es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('nombre','minlength')">
+              Nombre debe tener <strong>3 caracteres</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="descripcion" placeholder="Descripción">
+            <mat-error *ngIf="errorHandling('descripcion','required')">
+              Descripcion es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="precio" placeholder="Precio" >
+            <mat-error *ngIf="errorHandling('precio','required')">
+              Precio es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('precio','pattern')">
+              Precio debe tener <strong>números con dos decimales</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col" *ngIf="generosList">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Generos" formControlName="generos" multiple>
+              <mat-option *ngFor="let item of generosList" [value]="item.id">
+                  {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <mat-label>Publicar</mat-label>
+          <mat-radio-group formControlName="publicar">
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+            <mat-radio-button [value]="false">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="example-button-row">
+        <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
+        <button mat-raised-button color="primary" (click)="onBack()">Regresar</button>
+        <button mat-raised-button color="accent" type="submit">Guardar</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

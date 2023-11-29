@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Esto es un modelo de tabla, se le pone el nombre que se quiera, 
+// La tabla siempre va a estar con minúescula, aunque el modelo se ponga con mayúscula
+
+model Usuario{
+  id      String  @id @unique
+  correo  String  @unique
+  nombreCompleto String
+  direccionProvincia String
+  direccionCanton String
+  direccionDistrito String
+  direccionExacta String
+  telefono String
+  contrasena String
+  // Relación con la tabla de rol
+  rolId   Int
+  rol     Rol     @relation(fields: [rolId], references: [id])
+  // Relación con la tabla de centro de acopio
+  centroAcopio CentroAcopio[]
+  // Relación con la tabla de canje de material
+  canjeMaterial CanjeMaterial[]
+  // Relación con la tabla de canje de cupón
+  canjeCupon CanjeCupon[]
+}
+
+model Rol{
+  id      Int  @id @default(autoincrement())
+  nombre  String  @unique
+  // Relación con la tabla de usuarios
+  usuarios Usuario[]
+}
+
+model CentroAcopio{
+  id      Int  @id @default(autoincrement())
+  nombre  String
+  direccionProvincia String
+  direccionCanton String
+  direccionDistrito String
+  direccionExacta String
+  telefono String
+  horarioAtencion String
+  habilitado Boolean
+  // Relación con la tabla de usuarios
+  administradorId   String
+  administrador     Usuario     @relation(fields: [administradorId], references: [id])
+  // Relación con la tabla de material aceptado
+  materialAceptado MaterialAceptado[]
+  // Relación con la tabla de canje de material
+  canjeMaterial CanjeMaterial[]
+}
+
+model MaterialReciclable{
+  id      Int  @id @default(autoincrement())
+  nombre  String
+  descripcion String
+  imagenURL String
+  unidadMedida String
+  precioEcoMoneda Float
+  colorRepresentativo String
+  // Relación con la tabla de material aceptado
+  materialAceptado MaterialAceptado[]
+  // Relación con la tabla de detalle de canje de material
+  detalleCanjeMaterial DetalleCanjeMaterial[]
+}
+
+model MaterialAceptado{
+  // Relación con la tabla de centro de acopio
+  centroAcopioId   Int
+  centroAcopio     CentroAcopio     @relation(fields: [centroAcopioId], references: [id])
+  // Relación con la tabla de material reciclable
+  materialReciclableId   Int
+  materialReciclable     MaterialReciclable     @relation(fields: [materialReciclableId], references: [id])
+  // Definición de la llave primaria compuesta
+  @@id([centroAcopioId, materialReciclableId])
+}
+
+model CanjeMaterial{
+  id     Int  @id @default(autoincrement())
+  // Relación con la tabla de usuario
+  usuarioId   String
+  usuario     Usuario     @relation(fields: [usuarioId], references: [id])
+  // Relación con la tabla de centro de acopio
+  centroAcopioId   Int
+  centroAcopio     CentroAcopio     @relation(fields: [centroAcopioId], references: [id])
+  fechaCanje DateTime @default(now())
+  total Float
+  // Relación con la tabla de detalle de canje de material
+  detalleCanjeMaterial DetalleCanjeMaterial[]
+}
+
+model DetalleCanjeMaterial{
+  // Relación con la tabla de canje de material
+  canjeMaterialId   Int
+  canjeMaterial     CanjeMaterial     @relation(fields: [canjeMaterialId], references: [id])
+  // Relación con la tabla de material reciclable
+  materialReciclableId   Int
+  materialReciclable     MaterialReciclable     @relation(fields: [materialReciclableId], references: [id])
+  cantidad Float
+  subtotal Float
+  // Definición de la llave primaria compuesta
+  @@id([canjeMaterialId, materialReciclableId])
+}
+
+model CuponCanje{
+  id     Int  @id @default(autoincrement())
+  nombre  String
+  descripcion String
+  imagenURL String
+  categoria String
+  fechaInicio DateTime
+  fechaFinal DateTime
+  ecoMonedasNecesarias Int
+  // Relación con la tabla de canje de cupón
+  canjeCupon CanjeCupon[]
+}
+
+model CanjeCupon{
+  id     Int  @id @default(autoincrement())
+  // Relación con la tabla de usuario
+  usuarioId   String
+  usuario     Usuario     @relation(fields: [usuarioId], references: [id])
+  // Relación con la tabla de cupón de canje
+  cuponCanjeId   Int
+  cuponCanje     CuponCanje     @relation(fields: [cuponCanjeId], references: [id])
+  fechaCanje DateTime @default(now())
+}

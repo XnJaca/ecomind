@@ -1,0 +1,44 @@
+<div class="grid-container">
+    <mat-card class="header">
+      <mat-card-header><h1 class="mat-h1">Centros de Acopio Adminstrados</h1></mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <mat-label>Nombre Centro Acopio</mat-label>
+          <input
+            matInput
+            [(ngModel)]="filtro"
+            (ngModelChange)="filterCentroAcopios()"
+          />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-grid-list [cols]="3" rowHeight="350px" gutterSize="10px">
+      <mat-grid-tile *ngFor="let item of filterDatos">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title class="title" color="primary"
+              >{{ item.nombre }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              Dirección: {{ item.direccionProvincia }},
+              {{ item.direccionCanton }}, {{ item.direccionDistrito }}
+            </div>
+            <div>Horario: {{ item.horarioAtencion }}</div>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions>
+            <button mat-button
+            color="primary"
+            (click)="canjeMaterial(item.id)"
+          >
+            Ver Canjes de Material
+          </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  

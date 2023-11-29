@@ -1,0 +1,14 @@
+<mat-card class="dashboard-card" *ngIf="datos">
+    <mat-card-header>
+      <mat-card-title>
+        {{ datos.nombre }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="dashboard-card-content">
+      <p><b>Descripción: </b>{{ datos.descripcion }}</p>
+      <p><b>Precio: </b>{{ datos.precio | currency : "USD" }}</p>
+      
+      <!-- Foto -->
+    </mat-card-content>
+  </mat-card>
+  

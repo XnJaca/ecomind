@@ -1,29 +1,44 @@
 <form [formGroup]="canjeMaterialForm" class="form" fxLayout="column" fxLayoutAlign="center center">
 
     <mat-card class="box">
-      <mat-card-title class="form-title">Orden de Canje de Material</mat-card-title>
-      <mat-card-content>
-        <p class="form-date">Fecha del Canje: {{ fecha | date: 'dd/MM/yyyy' }}</p>
-      </mat-card-content>
-  
-      <div class="col selectCliente">
-        <mat-form-field class="full-width">
-          <mat-select placeholder="Clientes" formControlName="clienteId">
-            <mat-option *ngFor="let usuario of usuarioList" [value]="usuario.id">
-              {{ usuario.nombreCompleto }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="errorHandling('clienteId', 'required')">
-            Cliente es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <button mat-flat-button color="accent" (click)="confirmarCliente()" [disabled]="!canjeMaterialForm.get('clienteId').value">
-        Confirmar Cliente
-        <mat-icon>check</mat-icon>
-      </button>
+        <mat-card-title class="form-title">Orden de Canje de Material -
+            {{currentUser.centroAcopio.nombre}}</mat-card-title>
+        <mat-card-content>
+            <p class="form-date">Fecha del Canje: {{ fecha | date: 'dd/MM/yyyy' }}</p>
+        </mat-card-content>
+
+        <div class="col selectCliente">
+            <mat-form-field class="full-width">
+                <mat-select placeholder="Clientes" formControlName="clienteId" (selectionChange)="setSelectedUser($event.value)">
+                    <mat-option *ngFor="let usuario of usuarioList" [value]="usuario">
+                        {{ usuario.nombreCompleto }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="errorHandling('clienteId', 'required')">
+                    Cliente es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <!-- Mostrar informacion completa del usuario seleccionado -->
+        <div *ngIf="canjeMaterialForm.get('clienteId').value" class="col">
+            <mat-card class="box">
+                <mat-card-title>Información del Cliente</mat-card-title>
+                <mat-card-content>
+                    <p>Identificación: {{userSelect.id}}</p>
+                    <p>Nombre: {{userSelect.nombreCompleto}}</p>
+                    <p>Correo: {{userSelect.correo}}</p>
+                    <!-- <p>Telefono: {{selectedUser.telefono}}</p>
+                    <p>Centro de Acopio: {{selectedUser.centroAcopio.nombre}}</p> -->
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <button mat-flat-button color="accent" (click)="confirmarCliente()"
+            [disabled]="!canjeMaterialForm.get('clienteId').value">
+            Confirmar Cliente
+            <mat-icon>check</mat-icon>
+        </button>
     </mat-card>
-  </form>
+</form>
 <mat-card class="box">
     <mat-card-content *ngIf="dataSource">
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -78,10 +93,10 @@
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-flat-button color="accent" (click)="registrarCanje()" [disabled]="!clienteId">
-          Comprar
-          <mat-icon>shopping_bag</mat-icon>
+            Comprar
+            <mat-icon>shopping_bag</mat-icon>
         </button>
-      </mat-card-actions>
+    </mat-card-actions>
 </mat-card>
 
 

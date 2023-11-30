@@ -11,39 +11,47 @@
       https://material.angular.io/components/menu/overview
       nested menu
     -->
-    <button mat-menu-item [routerLink]="['/']" routerLinkActive="'mat-raised-button'" > Inicio </button>
-    <button mat-menu-item [routerLink]="'/materialreciclable'" [routerLinkActive]="'mat-raised-button'">Materiales Reciclables</button>
-    <button mat-menu-item [routerLink]="'/centroacopio'" [routerLinkActive]="'mat-raised-button'">Centros de acopio</button>
-    <button mat-menu-item  [matMenuTriggerFor]="menu2"
-    
-      routerLinkActive="mat-raised-button">
-      Mantenimientos
-    </button>
+    <button mat-menu-item [routerLink]="['/']" routerLinkActive="'mat-raised-button'"> Inicio </button>
+    <button mat-menu-item [routerLink]="'/materialreciclable'" [routerLinkActive]="'mat-raised-button'">Materiales
+      Reciclables</button>
+    <button mat-menu-item [routerLink]="'/centroacopio'" [routerLinkActive]="'mat-raised-button'">Centros de
+      acopio</button>
 
-    <mat-menu #menu2="matMenu">
-      <button mat-menu-item [routerLink]="'/materialreciclable/all'" [routerLinkActive]="'mat-raised-button'">Materiales Reciclables</button>
-      <button mat-menu-item [routerLink]="'/centroacopio/all'" [routerLinkActive]="'mat-raised-button'">Centros de Acopio</button>
-      <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
-      <!---<button mat-menu-item [routerLink]="'/orden/rGrafico'" [routerLinkActive]="'mat-raised-button'">Reporte Gráfico</button> --->
-      <!---<button mat-menu-item [routerLink]="'/orden/rPDF'" [routerLinkActive]="'mat-raised-button'">Reporte PDF</button>--->
-    </mat-menu>
 
-    <!-- <button mat-menu-item  [matMenuTriggerFor]="menu3"
-      routerLinkActive="mat-raised-button">
-      Administrador
-    </button>
-    <mat-menu #menu3="matMenu">
-      <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
-    </mat-menu>
+    <!-- if isAutenticated true show this -->
 
-    <button mat-menu-item  [matMenuTriggerFor]="menu4"
-      routerLinkActive="mat-raised-button">
-      Cliente
-    </button>
-    <mat-menu #menu4="matMenu">
-      <button mat-menu-item (click)="historialCanjes()" routerLinkActive="mat-raised-button"> Historial de Canjes</button>
-    </mat-menu> -->
-    
+    <div *ngIf="isAutenticated">
+      <button mat-menu-item [matMenuTriggerFor]="menu2" routerLinkActive="mat-raised-button"  *ngIf="currentUser.role.id == 1">
+        Mantenimientos
+      </button>
+
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item [routerLink]="'/materialreciclable/all'"
+          [routerLinkActive]="'mat-raised-button'">Materiales
+          Reciclables</button>
+        <button mat-menu-item [routerLink]="'/centroacopio/all'" [routerLinkActive]="'mat-raised-button'">Centros de
+          Acopio</button>
+        <!-- <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button"> Historial de Canjes</button> -->
+        <!---<button mat-menu-item [routerLink]="'/orden/rGrafico'" [routerLinkActive]="'mat-raised-button'">Reporte Gráfico</button> --->
+        <!---<button mat-menu-item [routerLink]="'/orden/rPDF'" [routerLinkActive]="'mat-raised-button'">Reporte PDF</button>--->
+      </mat-menu>
+      <button mat-menu-item [matMenuTriggerFor]="menu3" routerLinkActive="mat-raised-button" *ngIf="currentUser.role.id == 1">
+        Administrador
+      </button>
+      <mat-menu #menu3="matMenu">
+        <button mat-menu-item (click)="historialCentroAcopio()" routerLinkActive="mat-raised-button">Historial de
+          Canjes</button>
+      </mat-menu>
+
+      <button mat-menu-item [matMenuTriggerFor]="menu4" routerLinkActive="mat-raised-button" *ngIf="currentUser.role.id == 2">
+        Cliente
+      </button>
+      <mat-menu #menu4="matMenu">
+        <button mat-menu-item (click)="historialCanjes()" routerLinkActive="mat-raised-button">Historial de
+          Canjes</button>
+      </mat-menu>
+    </div>
+
   </mat-menu>
   <div class="example-button-container" align="end"></div>
   <div class="example-spacer"></div>
@@ -52,10 +60,10 @@
     <!--https://fonts.google.com/icons-->
     <!--https://material.angular.io/guide/typography-->
     <!-- Carrito de compra, presenta la cantidad -->
-    <button mat-icon-button matBadgeColor="accent" [matBadge]="qtyItems.toString()"
-       [routerLink]="'/canjematerial'" [routerLinkActive]="'mat-raised-button'" aria-label="Cantidad">
-     <mat-icon>shopping_cart</mat-icon>
-   </button> |   
+    <button mat-icon-button matBadgeColor="accent" [matBadge]="qtyItems.toString()" [routerLink]="'/canjematerial'"
+      [routerLinkActive]="'mat-raised-button'" aria-label="Cantidad">
+      <mat-icon>shopping_cart</mat-icon>
+    </button> |
     <!--Usuario-->
     <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.email}}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu3">

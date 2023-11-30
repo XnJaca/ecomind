@@ -28,14 +28,15 @@ export class CartService {
     localStorage.setItem('orden', JSON.stringify(this.cart.getValue()));
   }
   addToCart(producto: any) {
-  
+    console.log("PRODUCTO",producto);
+    
     const newItem = new ItemCart();
     //Armar instancia de ItemCart con los valores respectivos del producto
     //producto.id es cuando viene desde el boton comprar y trae la información del API
-    newItem.idItem = producto.id | producto.idItem;
-    newItem.precio = producto.precio;
+    newItem.idItem = producto.id || producto.idItem;
+    newItem.precio = producto.precioEcoMoneda || producto.product.precioEcoMoneda;
     newItem.cantidad = 1;
-    newItem.subtotal = this.calculoSubtotal(producto.precioEcoMoneda, newItem.cantidad);
+    newItem.subtotal = this.calculoSubtotal( producto.precioEcoMoneda || producto.product.precioEcoMoneda, newItem.cantidad);
     newItem.product = producto;
     //Obtenemos el valor actual
     let listCart = this.cart.getValue();
@@ -63,7 +64,7 @@ export class CartService {
         
         console.log("NEW ITEM",newItem);
         
-        listCart[objIndex].subtotal = this.calculoSubtotal(newItem.product.precioEcoMoneda, newItem.cantidad);
+        listCart[objIndex].subtotal = this.calculoSubtotal(producto.precioEcoMoneda || producto.product.precioEcoMoneda, newItem.cantidad);
       }
       //Si es el primer item de ese tipo se agrega al carrito
       else {
@@ -138,7 +139,8 @@ export class CartService {
         total += item.subtotal;
       });
     }
-
+    console.log("TOTAL",total);
+    
     return total;
   }
   

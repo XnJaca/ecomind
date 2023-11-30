@@ -46,8 +46,9 @@ export class UserLoginComponent implements OnInit {
     //Login API
     this.authService.loginUser(this.formulario.value)
     .subscribe((respuesta:any)=>{
+      console.log("RESPUESTA", respuesta.source._value);
       this.noti.mensajeRedirect(
-        'Usuario', 'Usuario logueado: ', 
+        'Usuario', `Usuario logueado: ${ respuesta.source._value.nombreCompleto}`, 
         TipoMessage.success,'/')
       this.router.navigate(['/'])
     })

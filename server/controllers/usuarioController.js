@@ -126,9 +126,13 @@ module.exports.login = async (request, response, next) => {
     console.log(usuario);
     const payload = {
       id: usuario.id,
+      nombreCompleto: usuario.nombreCompleto,
       email: usuario.correo,
       role: usuario.rol,
-      centroAcopio: usuario.centroAcopio[0].id,
+      centroAcopio: usuario.centroAcopio.length ? {
+        id: usuario.centroAcopio[0].id,
+        nombre: usuario.centroAcopio[0].nombre
+      } : null,
     }
 
     console.log(payload);

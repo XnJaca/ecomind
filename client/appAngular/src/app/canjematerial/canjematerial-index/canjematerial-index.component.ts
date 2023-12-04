@@ -21,6 +21,7 @@ export class CanjematerialIndexComponent implements OnInit {
   currentUser: any;
   userSelect: any;
   canjeMaterialForm: FormGroup;
+  cartItems: number = 0;
   clienteId: number;
   //Tabla
   displayedColumns: string[] = ['producto', 'precio', 'cantidad', 'subtotal', 'acciones'];
@@ -55,7 +56,10 @@ export class CanjematerialIndexComponent implements OnInit {
     this.cartService.currentDataCart$.subscribe(data => {
       console.log("SERVICE DATA", data);
 
-      this.dataSource = new MatTableDataSource(data)
+      this.dataSource = new MatTableDataSource(data);
+
+      //Set cartItems
+      this.cartItems = data.length;
       // this.agregarControlesAlFormulario();  // Llama aquí para agregar controles después de actualizar dataSource
     })
 
@@ -72,6 +76,7 @@ export class CanjematerialIndexComponent implements OnInit {
     this.cartService.removeFromCart(item)
     this.total = this.cartService.getTotal()
   }
+  
 
   public setSelectedUser = (user: any) => {
     this.userSelect = user;

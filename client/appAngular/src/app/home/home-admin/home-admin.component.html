@@ -1,0 +1,36 @@
+<div class="dashboard-container">
+    <header>
+      <h1>Bienvenido a {{currentUser.centroAcopio.nombre}}, {{currentUser.nombreCompleto}}</h1>
+      <p>Aplicación para la gestión de canjes de materiales para recolección y reciclaje</p>
+
+    </header>
+  
+    <div class="card-container">
+      <div class="card">
+        <h2>Canjes Realizados el mes de {{mesActual}}</h2>
+        <p>{{currentUser.cantidadCanjesMes}}</p>
+      </div>
+  
+      <div class="card">
+        <h2>Ecomonedas Generadas</h2>
+        <p>{{currentUser.totalEcoMonedasCentroAcopio ?? 0}}</p>
+      </div>
+  
+      <div class="card">
+        <h2>Ecomonedas Totales Recibidas</h2>
+        <p>{{currentUser.ecoMonedasRecibidas}}</p>
+      </div>
+    </div>
+  
+    <div class="card-container">
+      <div class="card">
+        <h2>Otra métrica importante</h2>
+        <p>Valor</p>
+      </div>
+  
+      <div class="card">
+        <h2>Otra métrica importante</h2>
+        <p>Valor</p>
+      </div>
+    </div>
+  </div>

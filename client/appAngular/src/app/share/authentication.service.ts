@@ -25,7 +25,9 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient, private cartService: CartService, private router: Router) {
 
-        this.tokenUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('tokenUser')));
+        this.tokenUserSubject = new BehaviorSubject<any>(
+            JSON.parse(localStorage.getItem('currentUser'))
+          );
 
         this.currentUser = this.tokenUserSubject.asObservable();
     }
@@ -46,7 +48,7 @@ export class AuthenticationService {
 
     createUser(user: any): Observable<any> {
         return this.http.post<any>(
-            this.ServerUrl + 'user/registrar',
+            this.ServerUrl + 'usuario/registrar',
             user
         );
     }
@@ -56,6 +58,9 @@ export class AuthenticationService {
         if (this.tokenUserValue != null) {
             this.user.next(jwtDecode(this.tokenUserValue))
         }
+
+        console.log("DECODE TOKEN", this.user.value);
+        
 
         return this.user.asObservable();
     }

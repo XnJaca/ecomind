@@ -9,6 +9,7 @@ CREATE TABLE `Usuario` (
     `direccionExacta` VARCHAR(191) NOT NULL,
     `telefono` VARCHAR(191) NOT NULL,
     `contrasena` VARCHAR(191) NOT NULL,
+    `ecoMonedas` DOUBLE NOT NULL DEFAULT 0,
     `rolId` INTEGER NOT NULL,
 
     UNIQUE INDEX `Usuario_id_key`(`id`),

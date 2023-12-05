@@ -1,0 +1,88 @@
+<mat-card class="full-width">
+    <!-- Titulo del Card -->
+    <mat-card-header>
+      <mat-card-title>
+        Centros de Acopio
+        <a
+          mat-fab
+          matTooltip="Crear Centro Acopio"
+          aria-label="Crear Centro Acopio"
+          color="primary"
+          (click)="crearUsuario()"
+        >
+          <mat-icon>add</mat-icon>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle><br /> </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- Table -->
+        <div class="mat-elevation-z8">
+            <table
+            mat-table
+            [dataSource]="dataSource"
+            class="full-width-table"
+            matSort
+            aria-label="Elements"
+            >
+             <!-- Nombre Column -->
+             <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Identificacion</th>
+                <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+            </ng-container>
+            <!-- Nombre Column -->
+            <ng-container matColumnDef="nombreCompleto">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let row">{{ row.nombreCompleto }}</td>
+            </ng-container>
+    
+            <!-- UnidadMedida Column -->
+            <ng-container matColumnDef="telefono">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefono</th>
+                <td mat-cell *matCellDef="let row">{{ row.telefono }}</td>
+            </ng-container>
+    
+            <!-- Precio Column -->
+            <ng-container matColumnDef="provincia">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Provincia</th>
+                <td mat-cell *matCellDef="let row">
+                {{ row.direccionProvincia }}
+                </td>
+            </ng-container>
+            <!-- Acciones Column -->
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                <td mat-cell *matCellDef="let row">
+                <!-- Botón Actualizar -->
+                <button
+                    mat-mini-fab
+                    matTooltip="Actualizar Centro Acopio"
+                    aria-label="Actualizar Centro Acopio"
+                    color="primary"
+                    (click)="actualizarUsuario(row.id)"
+                >
+                    <mat-icon class="mat-18">edit</mat-icon>
+                </button>
+                <!-- Botón Eliminar -->
+                <!-- <button
+                    mat-mini-fab
+                    matTooltip="Eliminar Centro Acopio"
+                    aria-label="Eliminar Centro Acopio"
+                    color="warn"
+                    (click)="eliminarUsuario(row.id)"
+                >
+                    <mat-icon class="mat-18">delete</mat-icon>
+                </button> -->
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+            ></tr>
+            </table>
+        </div>
+        <!-- Fin Table -->
+    </mat-card-content>
+</mat-card>

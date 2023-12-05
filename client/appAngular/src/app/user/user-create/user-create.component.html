@@ -1,63 +1,170 @@
-<form [formGroup]="formCreate"  novalidate>
-    <mat-card class="shipping-card">
-      <mat-card-header>
-        <mat-card-title>Crear Usuario </mat-card-title>
-      </mat-card-header> 
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Nombre</mat-label>
-              <input matInput type="text" placeholder="Nombre usuario" formControlName="nombre" />
-             <mat-error *ngIf="errorHandling('nombre', 'required')">
-                Nombre es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+<form [formGroup]="formCreate" novalidate>
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Crear Usuario </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Identificacion</mat-label>
+            <input matInput #identificacion type="text" placeholder="Numero de Identificacion"  maxlength="20"
+              formControlName="identificacion" />
+            <mat-hint align="end">{{ identificacion.value.length }} / 20</mat-hint>
+            <mat-error *ngIf="errorHandling('identificacion', 'required')">
+              Identificacion es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput type="text" placeholder="Email usuario" formControlName="email" />
-             <mat-error *ngIf="errorHandling('email', 'required')">
-                Email es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" placeholder="Nombre usuario" formControlName="nombre" />
+            <mat-error *ngIf="errorHandling('nombre', 'required')">
+              Nombre es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password usuario" formControlName="password" />
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-             <mat-error *ngIf="errorHandling('password', 'required')">
-                Password es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" placeholder="Email usuario" formControlName="email" />
+            <mat-error *ngIf="errorHandling('email', 'required')">
+              Email es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field  class="full-width">
-              <mat-label>Rol</mat-label>
-                <mat-select placeholder="Rol" formControlName="role">
-                  <mat-option *ngFor="let r of roles" [value]="r.id">
-                    {{ r.nombre }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password usuario"
+              formControlName="password" />
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('password', 'required')">
+              Password es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="submitForm()">Registrar</button>
-        <button mat-raised-button color="accent" type="reset" (click)="onReset()">Cancelar</button>
-      </mat-card-actions>
-    </mat-card>
-    </form>
-    
-    
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Telefono</mat-label>
+            <input matInput type="tel" placeholder="Telefono usuario" formControlName="telefono" pattern="[0-9]{8}" />
+            <mat-error *ngIf="errorHandling('telefono', 'required')">
+              Telefono es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('telefono', 'pattern')">
+              Telefono debe tener <strong>8 números</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Provincia -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Provincia</mat-label>
+            <mat-select formControlName="direccionProvincia" (selectionChange)="
+                onProvinceChange(
+                  formCreate.controls['direccionProvincia'].value
+                )
+              ">
+              <mat-option *ngFor="let provincia of provincias" [value]="provincia.id">
+                {{ provincia.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionProvincia', 'required')">
+              Provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Cantón -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Cantón</mat-label>
+            <mat-select formControlName="direccionCanton" (selectionChange)="
+                onCantonChange(
+                  formCreate.controls['direccionProvincia'].value,
+                  formCreate.controls['direccionCanton'].value
+                )
+              ">
+              <mat-option *ngFor="let canton of cantones" [value]="canton.id">
+                {{ canton.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionCanton', 'required')">
+              Cantón es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Distrito -->
+      <div class="row">
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <mat-label>Distrito</mat-label>
+            <mat-select formControlName="direccionDistrito" (selectionChange)="
+                onDistritoChange(
+                  formCreate.controls['direccionDistrito'].value
+                )
+              ">
+              <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">
+                {{ distrito.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('direccionDistrito', 'required')">
+              Distrito es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- DirecciónExacta -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput formControlName="direccionExacta" placeholder="Dirección Exacta" />
+            <mat-error *ngIf="errorHandling('direccionExacta', 'required')">
+              Dirección Exacta es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col" *ngIf="currentUser != null">
+        <mat-form-field class="full-width">
+          <mat-label>Centro de Acopio</mat-label>
+          <mat-select formControlName="centroAcopio" (selectionChange)="
+              onCentroAcopioChange(
+                formCreate.controls['centroAcopio'].value
+              )
+            ">
+            <mat-option *ngFor="let centroAcopio of centrosAcopio" [value]="centroAcopio.id">
+              {{ centroAcopio.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="errorHandling('centroAcopio', 'required')">
+            Provincia es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submitForm()">Registrar</button>
+      <button mat-raised-button color="accent" type="reset" (click)="onReset()">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -5,11 +5,15 @@ import { HomeRoutingModule } from './home-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
 import { AcercaDeComponent } from './acerca-de/acerca-de.component';
 import {MatCardModule} from '@angular/material/card';
+import { HomeClienteComponent } from './home-cliente/home-cliente.component';
+import { HomeAdminComponent } from './home-admin/home-admin.component';
 
 @NgModule({
   declarations: [
     InicioComponent,
-    AcercaDeComponent
+    AcercaDeComponent,
+    HomeClienteComponent,
+    HomeAdminComponent
   ],
   imports: [
     CommonModule,

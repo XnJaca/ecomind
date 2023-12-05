@@ -160,6 +160,23 @@ module.exports.createCanjeMaterial = async (request, response, next) => {
       },
     });
 
+   const user = await prisma.usuario.findUnique({
+      where: {
+        id: usuarioId.id,
+      },
+    });
+
+    const ecoMonedas = user.ecoMonedas + total;
+
+    await prisma.usuario.update({
+      where: {
+        id: usuarioId.id,
+      },
+      data: {
+        ecoMonedas,
+      },
+    });
+
     response.json({ message: 'CanjeMaterial creado exitosamente.' });
   } catch (error) {
     console.error(error);

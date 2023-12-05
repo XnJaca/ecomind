@@ -1,0 +1,74 @@
+<div class="grid-container">
+    <mat-card class="header">
+        <mat-card-header>
+            <div class="title-container">
+                <h1 class="mat-h1">Cupones</h1>
+              </div>
+              <div class="button-container">
+                <button mat-button class="ver-historial-button" (click)="verHistorial()">Ver Historial</button>
+              </div>
+        </mat-card-header>
+    </mat-card>
+
+    <mat-grid-list [cols]="3" rowHeight="600px" gutterSize="100px">
+        <mat-grid-tile *ngFor="let item of datos">
+            <mat-card class="dashboard-card">
+                <mat-card-content class="dashboard-card-content">
+                    <img *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" class="imagen" />
+                    <div>
+                        <mat-card-title class="title" color="primary">{{ item.nombre }}</mat-card-title>
+                        <div class="descripcion">
+                            <strong>Descripción:</strong> {{ item.descripcion }}
+                        </div>
+                        <div class="categoria">
+                            <strong>Categoría:</strong> {{ item.categoria }}
+                        </div>
+                        <div class="fecha">
+                            <strong>Fecha Inicio:</strong> {{ item.fechaInicio | date:'yyyy-MM-dd' }}
+                        </div>
+                        <div class="fecha">
+                            <strong>Fecha Fin:</strong> {{ item.fechaFinal | date:'yyyy-MM-dd' }}
+                        </div>
+                        <div class="precioEcoMoneda">
+                            <strong>Precio Ecomoneda:</strong> {{ item.ecoMonedasNecesarias | currency : "USD" }}
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-divider inset></mat-divider>
+                <button class="canjear-button" (click)="canjearCupon(item.id)">Canjear</button>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+    <!-- <mat-grid-list [cols]="3" rowHeight="350px" gutterSize="10px">
+        <mat-grid-tile *ngFor="let item of datos">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <img *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" class="imagen" width="100px" height="100px" />
+                    <mat-card-title class="title" color="primary">{{ item.nombre }}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <div>
+                        Dirección: {{ item.direccionProvincia }},
+                        {{ item.direccionCanton }}, {{ item.direccionDistrito }}
+                    </div>
+                    <div>Horario: {{ item.horarioAtencion }}</div>
+                </mat-card-content>
+                <mat-divider inset></mat-divider>
+                <!-- <mat-card-actions>
+            <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Detalle Cantro Acopio"
+              aria-label="Detalle Centro Acopio"
+              color="primary"
+              (click)="detalleCentroAcopio(item.id)"
+            >
+              <mat-icon class="mat-18">info</mat-icon>
+            </button>
+          </mat-card-actions> -->
+    <!-- </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>  -->
+<!-- </div> -->

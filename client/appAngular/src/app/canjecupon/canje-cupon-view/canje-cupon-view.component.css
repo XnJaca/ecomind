@@ -1,0 +1,140 @@
+::ng-deep app-canje-cupon-view {
+    .dashboard-card {
+        width: 100%;
+    }
+
+    .dashboard-card .dashboard-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: 100%;
+    }
+
+    .dashboard-card .imagen {
+        width: 100%;
+        height: 200px;
+        border-radius: 8px;
+    }
+
+    .dashboard-card img {
+        width: 100%;
+        height: 100%;
+        image-rendering: optimizeSpeed;
+    }
+
+    .dashboard-card .title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #673AB7;
+        /* Cambié el color a morado */
+        margin-top: 10px;
+    }
+
+    .dashboard-card .descripcion,
+    .dashboard-card .fecha,
+    .dashboard-card .categoria,
+    .dashboard-card .precioEcoMoneda {
+        font-size: 14px;
+        margin-top: 5px;
+        color: #333;
+        /* Color de texto general */
+    }
+
+    .dashboard-card mat-divider {
+        margin-top: 10px;
+        border-color: #E0E0E0;
+        /* Color de separador */
+    }
+
+    .dashboard-card .canjear-button {
+        background-color: #4CAF50;
+        /* Color verde para el botón de canje */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .dashboard-card .imagen {
+            height: 150px;
+        }
+    }
+
+    @media only screen and (min-width: 600px) {
+        .dashboard-card .imagen {
+            height: 200px;
+        }
+
+        .dashboard-card .dashboard-card-content {
+            display: block;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .dashboard-card .imagen {
+            height: 250px;
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        .dashboard-card .imagen {
+            height: 300px;
+        }
+    }
+
+    @media only screen and (min-width: 1200px) {
+        .dashboard-card .imagen {
+            height: 350px;
+        }
+    }
+
+    .title-container {
+        flex: 1;
+        /* Esto hace que ocupe todo el espacio disponible en el contenedor */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        /* Esto alinea el contenido al final (derecha) del contenedor */
+    }
+
+    .ver-historial-button {
+        background-color: rgb(81, 183, 216);
+        /* Color verde para el botón de canje */
+        color: white !important;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .ver-historial-button:hover {
+        background-color: rgb(81, 183, 216);
+        /* Color verde para el botón de canje */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+}

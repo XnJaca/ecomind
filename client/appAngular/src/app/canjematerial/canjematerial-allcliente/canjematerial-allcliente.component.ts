@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginatorIntl } from '@angular/material/paginator'; 
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
   selector: 'app-canjematerial-allcliente',
@@ -23,13 +24,16 @@ export class CanjematerialAllclienteComponent {
 
   displayedColumns = ['fecha', 'centroacopio', 'total', 'acciones'];
 
+  currentUser: any;
+
   // Inyecta el paginador
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private gService: GenericService,
     private dialog: MatDialog,
-    private paginatorIntl: MatPaginatorIntl 
+    private paginatorIntl: MatPaginatorIntl,
+    private authService: AuthenticationService
   ) {
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.nextPageLabel = 'Siguiente página';
@@ -47,9 +51,11 @@ export class CanjematerialAllclienteComponent {
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
 
-    let id = 80101028;
-    if (!isNaN(Number(id))) {
-      this.listaCanjes(Number(id));
+    this.authService.decodeToken.subscribe((user: any) => (
+      this.currentUser = user
+    ))
+    if (!isNaN(Number(this.currentUser.id))) {
+      this.listaCanjes(Number(this.currentUser.id));
     }
   }
 

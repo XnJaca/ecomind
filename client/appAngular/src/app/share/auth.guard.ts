@@ -17,32 +17,31 @@ export class UserGuard {
   }
   checkUserLogin(route: ActivatedRouteSnapshot): boolean {
     if (this.auth) {
-      const userRole = this.currentUser.role;
+      const userRole = this.currentUser.role.nombre;
       //roles.length && roles.indexOf(verify.role)===-1
-      if (
-        route.data['roles'].length &&
-        !route.data['roles'].includes(userRole)
-      ) {
-        this.noti.mensajeRedirect(
+      if (route.data['roles'].length && !route.data['roles'].includes(userRole)) {
+        this.noti.mensaje(
           'Usuario',
           `Usuario Sin permisos para acceder`,
           TipoMessage.warning,
-          '/usuario/login'
+          // '/usuario/login'
         );
-        this.router.navigate(['/usuario/login']);
+        // this.router.navigate(['/usuario/login']);
         return false;
       }
       return true;
     }
-    this.noti.mensajeRedirect(
+    this.noti.mensaje(
       'Usuario',
       `Usuario No autenticado`,
       TipoMessage.warning,
-      '/usuario/login'
+      // '/usuario/login'
     );
+    this.router.navigate(['/usuario/login']);
     return false;
   }
 }
+
 export const authGuard: CanActivateFn = (route, state) => {
   let userGuard = new UserGuard();
   return userGuard.checkUserLogin(route);

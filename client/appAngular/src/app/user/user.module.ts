@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatDividerModule} from '@angular/material/divider'; 
+import { MatTableModule } from '@angular/material/table';
 import {MatDialogModule} from "@angular/material/dialog";
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -16,12 +17,16 @@ import {MatCardModule} from '@angular/material/card';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserIndexComponent } from './user-index/user-index.component';
 import { UserCreateComponent } from './user-create/user-create.component';
+import { UserAllComponent } from './user-all/user-all.component';
+import { UserChangePasswordComponent } from './user-change-password/user-change-password.component';
 
 @NgModule({
   declarations: [
     UserLoginComponent,
     UserIndexComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    UserAllComponent,
+    UserChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +34,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
     MatCardModule,
     MatTabsModule,
     MatButtonModule,MatIconModule,
+    MatTableModule,
     LayoutModule,
     MatDividerModule,
     MatDialogModule,

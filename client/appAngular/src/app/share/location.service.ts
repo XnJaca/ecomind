@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LocationService {
-  private baseUrl = 'https://ubicaciones.paginasweb.cr'; 
+  private baseUrl = 'https://ubicaciones.paginasweb.cr/'; 
 
   constructor(private http: HttpClient) { }
 
   getProvincias(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/provincias.json`);
+    let data = this.http.get(`${this.baseUrl}provincias.json`);
+    return data;
   }
 
   getCantonesByProvincia(provinciaId: number): Observable<any> {

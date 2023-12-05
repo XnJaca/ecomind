@@ -71,7 +71,6 @@ export class HeaderComponent implements OnInit {
   }
 
 
-
   canjeMaterial(id: any) {
     this.router.navigate(['canjematerial/centroacopio', id]);
   }
@@ -82,6 +81,18 @@ export class HeaderComponent implements OnInit {
 
   historialCanjes() {
     this.router.navigate(['canjematerial/cliente']);
+  }
+
+  gestionUsuarios(){
+    this.router.navigate(['usuario/all']);
+  }
+
+  gestionCupones(){
+    this.router.navigate(['canjecupon/']);
+  }
+
+  changePassword(){
+    this.router.navigate(["usuario/changePassword"]);
   }
 
 

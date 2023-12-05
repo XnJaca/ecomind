@@ -10,6 +10,8 @@ router.get("/", usuarioController.get);
 router.get("/clients", usuarioController.getClients);
 router.get("/:id", usuarioController.getById);
 router.post("/login", usuarioController.login);
+router.post("/registrar", usuarioController.register);
+router.post("/changePassword", usuarioController.changePassword);
 
 //Exportar
 module.exports = router;

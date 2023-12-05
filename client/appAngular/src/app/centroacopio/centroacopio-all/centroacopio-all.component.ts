@@ -26,7 +26,8 @@ export class CentroacopioAllComponent {
 
   displayedColumns = ['nombre', 'direccion', 'telefono','acciones'];
 
-  constructor(private gService: GenericService, 
+  constructor(
+    private gService: GenericService, 
     private router: Router,
     private route: ActivatedRoute,
     private paginatorIntl: MatPaginatorIntl,

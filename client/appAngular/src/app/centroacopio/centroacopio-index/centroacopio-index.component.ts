@@ -12,49 +12,59 @@ import { CentroacopioDiagComponent } from '../centroacopio-diag/centroacopio-dia
   styleUrls: ['./centroacopio-index.component.css']
 })
 export class CentroacopioIndexComponent {
-  datos:any; //Respuesta del API
+  datos: any; //Respuesta del API
   filterDatos: any;
-  destroy$: Subject<boolean>= new Subject<boolean>();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   filtro: string = '';
 
-  constructor(private gService: GenericService,
-    private dialog:MatDialog, private cartService:CartService,
-    private noti: NotificacionService){
+  constructor(
+    private gService: GenericService,
+    private dialog: MatDialog, private cartService: CartService,
+    private noti: NotificacionService) {
     this.listarCentroAcopios();
   }
 
-  listarCentroAcopios(){
+  listarCentroAcopios() {
     this.gService.list('centroacopio/')
       .pipe(takeUntil(this.destroy$))
-      .subscribe((response:any)=>{
+      .subscribe((response: any) => {
         console.log(response);
-        this.datos=response.filter((centroacopio:any)=>centroacopio.habilitado==true);
-        this.filterDatos=this.datos
+        this.datos = response.filter((centroacopio: any) => centroacopio.habilitado == true);
+        this.filterDatos = this.datos
       })
   }
 
-  detalleCentroAcopio(id:number){
-    const dialogConfig=new MatDialogConfig();
-    dialogConfig.disableClose=false;
-    dialogConfig.data={
-      id:id
+  detalleCentroAcopio(id: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      id: id
     };
-    this.dialog.open(CentroacopioDiagComponent,dialogConfig);
+    this.dialog.open(CentroacopioDiagComponent, dialogConfig);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-  
+
   filterCentroAcopios() {
-    if(!this.filtro){
-      this.filterDatos=this.datos
-    }else{
-      this.filterDatos=this.datos.filter(
-        centroacopio=> 
-          centroacopio?.nombre.toLowerCase().includes(this.filtro.toLowerCase())
-      )
+    if (!this.filtro) {
+      this.filterDatos = this.datos;
+    } else {
+      this.filterDatos = this.datos.filter(
+        centroacopio => {
+          // Filtrar por nombre, provincia y/o material aceptado
+          const nombreIncluido = centroacopio?.nombre.toLowerCase().includes(this.filtro.toLowerCase());
+          const provinciaIncluida = centroacopio?.direccionProvincia.toLowerCase().includes(this.filtro.toLowerCase());
+          const materialAceptadoIncluido = centroacopio?.materialAceptado.some(
+            material => material.materialReciclable.nombre.toLowerCase().includes(this.filtro.toLowerCase())
+          );
+
+          // Retornar true si se cumple al menos una de las condiciones (nombre, provincia o material aceptado)
+          return nombreIncluido || provinciaIncluida || materialAceptadoIncluido;
+        }
+      );
     }
   }
 

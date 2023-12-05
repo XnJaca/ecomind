@@ -14,7 +14,7 @@ datasource db {
 // La tabla siempre va a estar con minúescula, aunque el modelo se ponga con mayúscula
 
 model Usuario{
-  id      String  @id @unique
+  id      String  @id @unique 
   correo  String  @unique
   nombreCompleto String
   direccionProvincia String
@@ -23,6 +23,8 @@ model Usuario{
   direccionExacta String
   telefono String
   contrasena String
+  //Posible null iniital 0
+  ecoMonedas Float @default(0)
   // Relación con la tabla de rol
   rolId   Int
   rol     Rol     @relation(fields: [rolId], references: [id])

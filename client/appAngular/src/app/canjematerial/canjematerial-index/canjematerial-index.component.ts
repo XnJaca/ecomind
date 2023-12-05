@@ -68,7 +68,10 @@ export class CanjematerialIndexComponent implements OnInit {
   }
   actualizarCantidad(item: any) {
     console.log("ITEM ACTUALIZAR", item);
-
+    if (item.cantidad == null) {
+      this.noti.mensaje('Error', 'Debe ingresar una cantidad valida.', TipoMessage.error);
+      return;
+    }
     this.cartService.addToCart(item)
     this.total = this.cartService.getTotal()
   }
@@ -89,6 +92,7 @@ export class CanjematerialIndexComponent implements OnInit {
   };
 
   registrarCanje() {
+
     if (this.cartService.getItems != null) {
       //Obtener los items de la compra
       let itemsCompra = this.cartService.getItems;

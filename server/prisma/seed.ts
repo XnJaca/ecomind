@@ -292,10 +292,11 @@ async function main() {
     // 1
     await prisma.canjeMaterial.create({
         data: {
+           
             usuario: {
                 connect: {
-                    id: "204930861"
-                }
+                    id: "204930861",
+                },
             },
             centroAcopio: {
                 connect: {
@@ -303,7 +304,16 @@ async function main() {
                 }
             },
             fechaCanje: new Date("2023-10-02"),
-            total: 10
+            total: 10,
+        }
+    });
+
+    await prisma.usuario.update({
+        where: {
+            id: "204930861"
+        },
+        data: {
+            ecoMonedas: 10
         }
     });
 
@@ -325,6 +335,15 @@ async function main() {
         }
     });
 
+    await prisma.usuario.update({
+        where: {
+            id: "204930861"
+        },
+        data: {
+            ecoMonedas: 16
+        }
+    });
+
     // 3
     await prisma.canjeMaterial.create({
         data: {
@@ -340,6 +359,15 @@ async function main() {
             },
             fechaCanje: new Date("2023-10-02"),
             total: 20
+        }
+    });
+
+    await prisma.usuario.update({
+        where: {
+            id: "80101028"
+        },
+        data: {
+            ecoMonedas: 20
         }
     });
 
